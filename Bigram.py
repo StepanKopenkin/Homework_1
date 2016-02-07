@@ -75,7 +75,6 @@ class BigramWorker:
             exit()
 
     def ToFile(self, name):
-
         with open(name + ".csv", 'w', newline='') as csvfile:
             wrtr = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for x in range(self.GetLen()):
@@ -83,7 +82,6 @@ class BigramWorker:
                                self.__dct["frequency"][1][x]])
 
     def __Transformation(self):
-
         x = 0
         while (x < self.GetLen()):
             y = x
