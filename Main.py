@@ -1,4 +1,5 @@
 import Bigram
+
 ki = Bigram.BigramWorker("бросать")
 ki.ToFile("br")
 
