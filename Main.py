@@ -4,4 +4,4 @@ ki = Bigram.BigramWorker("бросать")
 ki.ToFile("br")
 
 br = Bigram.BigramWorker("кидать")
-br.ToFile("br")
+br.ToFile("kd")
