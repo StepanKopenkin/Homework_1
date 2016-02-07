@@ -1,4 +1,3 @@
-import re
 import Stemmer
 import pymorphy2
 import QuickSort as q
@@ -19,7 +18,6 @@ class BigramWorker:
     __dct = {"stem": "", "normal_form": [], "frequency": ([], [])}
 
     def __init__(self, verb):
-
         print("Program start working")
         CurrentTime = time.time()
 
@@ -56,7 +54,11 @@ class BigramWorker:
     def GetLen(self):
         return len(self.__dct["normal_form"])
 
+    # Данную функцию я взял у Марка, немного изменил ее, чтобы она скачивала файлы для любого глагола
     def __GetFile(self):
+        """
+        :return: Возвращает файл, который нужен для работы с данным глаголом
+        """
         npart = translit(self.__dct["stem"][:2], reversed=True)
         url = "http://storage.googleapis.com/books/ngrams/books/googlebooks-rus-all-2gram-20120701-"
         url += npart
@@ -75,6 +77,11 @@ class BigramWorker:
             exit()
 
     def ToFile(self, name):
+        """
+        Функция преобразовывает соварь в вайл формата csv
+        :param name: Имя файла
+        :return: None
+        """
         with open(name + ".csv", 'w', newline='') as csvfile:
             wrtr = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for x in range(self.GetLen()):
@@ -82,6 +89,10 @@ class BigramWorker:
                                self.__dct["frequency"][1][x]])
 
     def __Transformation(self):
+        """
+        Функция соединяет поля с одинаковыми значениями
+        :return:
+        """
         x = 0
         while (x < self.GetLen()):
             y = x
@@ -97,4 +108,8 @@ class BigramWorker:
         [self.__dct["frequency"][0].append(x) for x in range(self.GetLen())]
 
     def __FinalTransformation(self):
+        """
+        Сортировка словаря
+        :return:
+        """
         q.quickSort(self.__dct["frequency"], 1, True)
